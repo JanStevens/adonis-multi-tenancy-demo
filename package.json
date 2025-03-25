@@ -8,10 +8,12 @@
     "start": "node bin/server.js",
     "build": "node ace build",
     "dev": "node ace serve --hmr",
+    "queue:listen": "node ace queue:listen",
     "test": "node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "postinstall": "patch-package"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
@@ -31,39 +33,40 @@
     "#tests/*": "./tests/*.js",
     "#config/*": "./config/*.js",
     "#extensions/*": "./extensions/*.js",
-    "#jobs/*": "./app/jobs/*.js",
-    "#externals/*": "./externals/*.js"
+    "#jobs/*": "./app/jobs/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
-    "@adonisjs/eslint-config": "^2.0.0-beta.6",
-    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/eslint-config": "^2.0.0",
+    "@adonisjs/prettier-config": "^1.4.4",
     "@adonisjs/tsconfig": "^1.4.0",
-    "@japa/api-client": "^3.0.3",
+    "@japa/api-client": "^3.0.4",
     "@japa/assert": "^4.0.1",
     "@japa/plugin-adonisjs": "^4.0.0",
     "@japa/runner": "^4.2.0",
-    "@swc/core": "^1.10.15",
+    "@swc/core": "^1.11.13",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^22.13.1",
-    "eslint": "^9.20.0",
+    "@types/node": "^22.13.13",
+    "@types/pg": "^8.11.11",
+    "eslint": "^9.23.0",
     "hot-hook": "^0.4.0",
+    "patch-package": "^8.0.0",
     "pino-pretty": "^13.0.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "ts-node-maintained": "^10.9.5",
-    "typescript": "~5.7"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@adonisjs/auth": "^9.3.1",
-    "@adonisjs/core": "^6.17.1",
+    "@adonisjs/auth": "^9.3.2",
+    "@adonisjs/core": "^6.17.2",
     "@adonisjs/cors": "^2.2.1",
-    "@adonisjs/lucid": "^21.6.0",
+    "@adonisjs/lucid": "^21.6.1",
     "@adonisjs/redis": "^9.2.0",
     "@rlanz/bull-queue": "^3.1.0",
-    "@vinejs/vine": "^3.0.0",
-    "bentocache": "^1.0.0",
+    "@vinejs/vine": "^3.0.1",
+    "bentocache": "^1.2.1",
     "luxon": "^3.5.0",
-    "pg": "^8.13.1",
+    "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
@@ -71,17 +74,6 @@
       "./app/controllers/**/*.ts",
       "./app/middleware/*.ts"
     ]
-  },
-  "overrides": {
-    "strtok3": "8.0.1"
-  },
-  "resolutions": {
-    "strtok3": "8.0.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "strtok3": "8.0.1"
-    }
   },
   "prettier": "@adonisjs/prettier-config"
 }

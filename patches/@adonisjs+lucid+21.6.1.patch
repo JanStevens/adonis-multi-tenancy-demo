@@ -1,0 +1,18 @@
+diff --git a/node_modules/@adonisjs/lucid/build/src/seeders/main.d.ts b/node_modules/@adonisjs/lucid/build/src/seeders/main.d.ts
+index fafb79e..c135a93 100644
+--- a/node_modules/@adonisjs/lucid/build/src/seeders/main.d.ts
++++ b/node_modules/@adonisjs/lucid/build/src/seeders/main.d.ts
+@@ -1 +1,2 @@
+ export { BaseSeeder } from './base_seeder.js';
++export { SeedsRunner } from './runner.js';
+\ No newline at end of file
+diff --git a/node_modules/@adonisjs/lucid/build/src/seeders/main.js b/node_modules/@adonisjs/lucid/build/src/seeders/main.js
+index 52029e8..17ab8f9 100644
+--- a/node_modules/@adonisjs/lucid/build/src/seeders/main.js
++++ b/node_modules/@adonisjs/lucid/build/src/seeders/main.js
+@@ -7,3 +7,4 @@
+  * file that was distributed with this source code.
+  */
+ export { BaseSeeder } from './base_seeder.js';
++export { SeedsRunner } from './runner.js';
+\ No newline at end of file

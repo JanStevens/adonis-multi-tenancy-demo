@@ -1,9 +1,7 @@
-import assert from 'node:assert'
 import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 import db from '@adonisjs/lucid/services/db'
 import Tenant from '#models/backoffice/tenant'
-import { SeedsRunner } from '#externals/seeders_runner'
 
 export default class RunTenantMigrations extends BaseCommand {
   static readonly commandName = 'tenant:seed'
@@ -18,7 +16,7 @@ export default class RunTenantMigrations extends BaseCommand {
     alias: 't',
     flagName: 'tenant',
     required: false,
-    description: 'Tenant(s) id(s) to migrate. If not provided, all tenants will be migrated',
+    description: 'Tenant(s) id(s) to seed. If not provided, all tenants will be seeded',
   })
   declare tenantsIds?: string[]
 
@@ -47,10 +45,7 @@ export default class RunTenantMigrations extends BaseCommand {
         try {
           task.update('Connecting to the tenant database')
 
-          const connectionConfig = db.manager.get(tenant.getConnection().connectionName)?.config
-          assert(connectionConfig, 'Tenant connection config not found')
-
-          db.manager.patch('tenant', connectionConfig)
+          const { SeedsRunner } = await import('@adonisjs/lucid/seeders')
           const seeder = new SeedsRunner(db, this.app, 'tenant')
 
           task.update('Running seeders')
