@@ -1,6 +1,7 @@
 import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 import Tenant from '#models/backoffice/tenant'
+import { TenantService } from '#services/tenant_service'
 
 export default class RunTenantMigrations extends BaseCommand {
   static readonly commandName = 'migration:tenant:run'
@@ -56,11 +57,8 @@ export default class RunTenantMigrations extends BaseCommand {
     await tasks
       .add(`Migrating tenant "${tenant.name}": schema (${tenant.schemaName})`, async (task) => {
         try {
-          task.update('Connecting to the tenant database')
-          tenant.getConnection()
-
           task.update('Running migrations')
-          await tenant.migrate({
+          await TenantService.runTenantMigrations(tenant, {
             direction: 'up',
             disableLocks: this.disableLocks,
             dryRun: this.dryRun,

@@ -33,6 +33,6 @@ export default class Admin extends compose(BackofficeBaseModel, AuthFinder) {
 
   static readonly accessTokens = DbAccessTokensProvider.forModel(Admin, {
     prefix: 'ad_',
-    table: `${multitenancyConfig.backofficeSchemaName}.auth_access_tokens`,
+    table: `${multitenancyConfig.backoffice.schemaName}.auth_access_tokens`,
   })
 }

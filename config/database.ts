@@ -12,14 +12,21 @@ const defaultConnectionOptions = {
     database: env.get('DB_DATABASE'),
     ssl: env.get('DB_SSL'),
   },
+  debug: true,
+  pool: {
+    min: 0,
+    max: 10,
+  },
+  useNullAsDefault: true,
 } as const
 
 const dbConfig = defineConfig({
+  prettyPrintDebugQueries: true,
   connection: 'tenant',
   connections: {
-    [multitenancyConfig.centralConnectionName]: {
+    [multitenancyConfig.central.connectionName]: {
       ...defaultConnectionOptions,
-      searchPath: [multitenancyConfig.centralSchemaName],
+      searchPath: [multitenancyConfig.central.schemaName],
       migrations: {
         naturalSort: true,
         paths: ['database/migrations/central'],
@@ -29,9 +36,9 @@ const dbConfig = defineConfig({
       },
     },
 
-    [multitenancyConfig.backofficeConnectionName]: {
+    [multitenancyConfig.backoffice.connectionName]: {
       ...defaultConnectionOptions,
-      searchPath: [multitenancyConfig.backofficeSchemaName],
+      searchPath: [multitenancyConfig.backoffice.schemaName],
       migrations: {
         naturalSort: true,
         paths: ['database/migrations/backoffice'],
@@ -43,13 +50,18 @@ const dbConfig = defineConfig({
 
     tenant: {
       ...defaultConnectionOptions,
-      searchPath: [`${multitenancyConfig.tenantSchemaPrefix}_tenantId`],
+      // Ensures the defaults to an invalid schema
+      searchPath: [`${multitenancyConfig.tenant.schemaPrefix}_tenantId`],
       migrations: {
         naturalSort: true,
         paths: ['database/migrations/tenant'],
       },
       seeders: {
         paths: ['database/seeders/tenant'],
+      },
+      pool: {
+        min: 10,
+        max: 100,
       },
     },
   },

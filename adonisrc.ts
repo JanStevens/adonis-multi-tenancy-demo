@@ -51,6 +51,7 @@ export default defineConfig({
   |
   */
   preloads: [
+    () => import('#start/events/tenant'),
     () => import('#start/routes/central'),
     () => import('#start/routes/tenant'),
     () => import('#start/routes/backoffice'),

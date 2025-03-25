@@ -1,11 +1,17 @@
 import env from '#start/env'
 
 export default {
-  backofficeSchemaName: 'backoffice',
-  backofficeConnectionName: 'backoffice',
-  centralSchemaName: 'public',
-  centralConnectionName: 'public',
-  tenantConnectionNamePrefix: 'tenant_',
-  tenantSchemaPrefix: 'tenant_',
+  backoffice: {
+    schemaName: 'backoffice',
+    connectionName: 'backoffice',
+  },
+  central: {
+    schemaName: 'public',
+    connectionName: 'public',
+  },
+  tenant: {
+    schemaPrefix: 'tenant_',
+    connectionName: 'tenant',
+  },
   tenantHeaderKey: env.get('TENANT_HEADER_KEY'),
 }

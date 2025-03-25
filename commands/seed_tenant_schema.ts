@@ -2,6 +2,7 @@ import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 import db from '@adonisjs/lucid/services/db'
 import Tenant from '#models/backoffice/tenant'
+import { TenantService } from '#services/tenant_service'
 
 export default class RunTenantMigrations extends BaseCommand {
   static readonly commandName = 'tenant:seed'
@@ -43,7 +44,8 @@ export default class RunTenantMigrations extends BaseCommand {
     await tasks
       .add(`Migrating tenant "${tenant.name}": schema (${tenant.schemaName})`, async (task) => {
         try {
-          task.update('Connecting to the tenant database')
+          task.update('Switching to the tenant database')
+          await TenantService.switchSchema(tenant)
 
           const { SeedsRunner } = await import('@adonisjs/lucid/seeders')
           const seeder = new SeedsRunner(db, this.app, 'tenant')
